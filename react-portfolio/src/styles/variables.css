@@ -1,0 +1,16 @@
+:root {
+  --bg-primary: #0b0f1a;
+  --bg-secondary: #11162a;
+
+  --accent-primary: #6c63ff;
+  --accent-secondary: #00f5d4;
+
+  --text-primary: #eaeaea;
+  --text-secondary: #b5b5b5;
+
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+
+  --radius: 14px;
+  --transition: all 0.35s ease;
+}
