@@ -1,9 +1,13 @@
 import "./Hero.css";
 import { motion } from "framer-motion";
+import Scene from "../ThreeD/Scene";
 
 const Hero = () => {
   return (
     <section id="home" className="hero">
+  <div className="hero-3d">
+    <Scene />
+  </div>
       <motion.div
         className="hero-content"
         initial={{ opacity: 0, y: 60 }}
