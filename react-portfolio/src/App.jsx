@@ -1,31 +1,21 @@
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
+import About from "./components/About/About";
+import Skills from "./components/Skills/Skills";
+import Projects from "./components/Projects/Projects";
+import Experience from "./components/Experience/Experience";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   return (
     <>
       <Navbar />
       <Hero />
-
-      <section id="home">
-        <h1>Home</h1>
-      </section>
-
-      <section id="about">
-        <h1>About</h1>
-      </section>
-
-      <section id="skills">
-        <h1>Skills</h1>
-      </section>
-
-      <section id="projects">
-        <h1>Projects</h1>
-      </section>
-
-      <section id="contact">
-        <h1>Contact</h1>
-      </section>
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Contact />
     </>
   );
 }
