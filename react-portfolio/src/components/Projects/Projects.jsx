@@ -1,32 +1,45 @@
 import "./Projects.css";
 import { motion } from "framer-motion";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const projects = [
   {
-    title: "AI Portfolio Website",
+    title: "SalesPulse – Sales Dashboard",
     description:
-      "A modern animated portfolio built with React, Framer Motion, and advanced CSS.",
-    tech: ["React", "Framer Motion", "CSS"],
+      "Interactive sales dashboard built with React to visualize KPIs, team performance, and trends.",
+    tech: ["React", "JavaScript", "UI"],
     github: "#",
     live: "#",
   },
   {
-    title: "E-Commerce UI",
+    title: "Finance Chatbot",
     description:
-      "Frontend for an e-commerce platform with interactive UI and smooth animations.",
-    tech: ["React", "CSS", "JavaScript"],
+      "AI-powered chatbot providing real-time stock, currency, and investment updates.",
+    tech: ["Python", "LangFlow", "AI"],
     github: "#",
     live: "#",
   },
   {
-    title: "Dashboard App",
+    title: "Sentiment Chat App",
     description:
-      "A clean admin dashboard with charts, cards, and responsive layouts.",
-    tech: ["React", "Charts", "UI Design"],
+      "Real-time chat application with sentiment analysis using React and Flask.",
+    tech: ["React", "Flask", "NLP"],
     github: "#",
     live: "#",
   },
 ];
+
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0 },
+};
 
 const Projects = () => {
   return (
@@ -39,35 +52,57 @@ const Projects = () => {
         Projects
       </motion.h2>
 
-      <div className="projects-grid">
-        {projects.map((project, index) => (
-          <motion.div
+      <motion.div
+        className="projects-grid"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+      >
+        {projects.map((project) => (
+          <motion.article
             key={project.title}
             className="project-card"
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            whileHover={{ rotateX: 6, rotateY: -6 }}
+            variants={item}
+            whileHover={{
+              y: -10,
+              boxShadow: "0 28px 80px rgba(0,0,0,0.35)",
+            }}
           >
-            <div className="card-overlay"></div>
+            {/* Rim light */}
+            <span className="project-rim" />
 
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
+            <div className="project-content">
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
 
-            <div className="tech-stack">
-              {project.tech.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
+              <motion.div
+                className="project-tech"
+                initial={{ opacity: 0.8 }}
+                whileHover={{ opacity: 1 }}
+              >
+                {project.tech.map((t) => (
+                  <span key={t}>{t}</span>
+                ))}
+              </motion.div>
             </div>
 
-            <div className="project-links">
-              <a href={project.github} target="_blank">GitHub</a>
-              <a href={project.live} target="_blank">Live</a>
-            </div>
-          </motion.div>
+            <motion.div
+              className="project-actions"
+              initial={{ opacity: 0, y: 10 }}
+              whileHover={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <a href={project.github} target="_blank" rel="noreferrer">
+                <FaGithub /> Code
+              </a>
+              <a href={project.live} target="_blank" rel="noreferrer">
+                <FaExternalLinkAlt /> Live
+              </a>
+            </motion.div>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

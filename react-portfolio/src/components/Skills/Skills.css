@@ -1,51 +1,101 @@
 .skills {
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
 }
 
 .skills h2 {
   font-size: 2.4rem;
   text-align: center;
+  margin-bottom: 60px;
+}
+
+.skills-group {
   margin-bottom: 50px;
 }
 
-.skills-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-}
-
 .skills-group h3 {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
   color: var(--accent-primary);
 }
 
-.skill-bar {
-  margin-bottom: 22px;
-}
-
-.skill-info {
+/* GRID */
+.skills-grid {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 0.85rem;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.bar-bg {
-  width: 100%;
-  height: 8px;
-  background: var(--bg-secondary);
-  border-radius: 6px;
-  overflow: hidden;
+/* CARD */
+.skill-card {
+  position: relative;
+  min-width: 150px;
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: var(--glass-bg);
+  border-radius: 14px;
+  cursor: default;
+
+  outline: none;
+  isolation: isolate;
+  transition: var(--transition);
 }
 
-.bar-fill {
-  height: 100%;
+/* Animated gradient border */
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
   background: linear-gradient(
-    90deg,
+    120deg,
+    transparent,
     var(--accent-primary),
-    var(--accent-secondary)
+    var(--accent-secondary),
+    transparent
   );
-  border-radius: 6px;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+}
+
+.skill-card:hover::before,
+.skill-card:focus-visible::before {
+  opacity: 1;
+}
+
+/* Card inner surface */
+.skill-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-secondary);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* ICON */
+.skill-icon {
+  font-size: 1.4rem;
+  color: var(--accent-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TEXT */
+.skill-card span {
+  font-size: 0.85rem;
+  letter-spacing: 0.4px;
+  color: var(--text-primary);
+}
+
+/* Keyboard accessibility */
+.skill-card:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-secondary);
 }

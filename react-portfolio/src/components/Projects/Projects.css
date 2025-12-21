@@ -9,72 +9,109 @@
   margin-bottom: 60px;
 }
 
+/* GRID */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 28px;
 }
 
+/* CARD */
 .project-card {
   position: relative;
-  padding: 30px;
+  padding: 26px;
+  border-radius: 18px;
   background: var(--glass-bg);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  backdrop-filter: blur(14px);
-  transform-style: preserve-3d;
   transition: var(--transition);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.card-overlay {
+/* Subtle gradient rim */
+.project-rim {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(
-    circle at top,
-    rgba(108, 99, 255, 0.25),
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(108, 99, 255, 0.35),
+    rgba(0, 245, 212, 0.35),
     transparent 70%
   );
   opacity: 0;
   transition: var(--transition);
+  z-index: -1;
 }
 
-.project-card:hover .card-overlay {
+.project-card:hover .project-rim {
   opacity: 1;
 }
 
-.project-card h3 {
-  font-size: 1.1rem;
+/* CONTENT */
+.project-content h3 {
+  font-size: 1.05rem;
   margin-bottom: 10px;
 }
 
-.project-card p {
+.project-content p {
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 14px;
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   margin-bottom: 16px;
 }
 
-.tech-stack span {
-  font-size: 0.7rem;
-  padding: 4px 8px;
-  border-radius: 20px;
-  background: var(--bg-secondary);
-}
-
-.project-links {
+/* TECH TAGS */
+.project-tech {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.project-links a {
-  font-size: 0.8rem;
+.project-tech span {
+  font-size: 0.7rem;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+/* ACTIONS */
+.project-actions {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 22px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  opacity: 0;
+}
+
+.project-card:hover .project-actions {
+  opacity: 1;
+}
+
+.project-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
   color: var(--accent-secondary);
+  transition: var(--transition);
+}
+
+.project-actions a:hover {
+  background: var(--accent-secondary);
+  color: #000;
 }

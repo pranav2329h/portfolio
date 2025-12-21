@@ -1,43 +1,73 @@
 import "./Skills.css";
 import { motion } from "framer-motion";
+import {
+  FaReact,
+  FaPython,
+  FaJava,
+  FaPhp,
+  FaHtml5,
+  FaCss3Alt,
+  FaGithub,
+  FaWordpress,
+  FaShopify,
+  FaLinux,
+} from "react-icons/fa";
+import { SiJavascript, SiFigma, SiFlask, SiMysql, SiMongodb } from "react-icons/si";
 
-const coreSkills = [
-  { name: "HTML", level: 90 },
-  { name: "CSS", level: 85 },
-  { name: "JavaScript", level: 80 },
-  { name: "React", level: 75 },
+/* =========================
+   SKILLS DATA (FROM RESUME)
+========================= */
+
+const skillsData = [
+  {
+    category: "Languages",
+    skills: [
+      { name: "Python", icon: FaPython },
+      { name: "Java", icon: FaJava },
+      { name: "PHP", icon: FaPhp },
+      { name: "JavaScript", icon: SiJavascript },
+      { name: "HTML", icon: FaHtml5 },
+      { name: "CSS", icon: FaCss3Alt },
+    ],
+  },
+  {
+    category: "Frameworks & Tools",
+    skills: [
+      { name: "React.js", icon: FaReact },
+      { name: "Flask", icon: SiFlask },
+      { name: "GitHub", icon: FaGithub },
+      { name: "Figma", icon: SiFigma },
+      { name: "WordPress", icon: FaWordpress },
+      { name: "Shopify", icon: FaShopify },
+    ],
+  },
+  {
+    category: "Databases & Systems",
+    skills: [
+      { name: "MySQL", icon: SiMysql },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "Linux / Ubuntu", icon: FaLinux },
+    ],
+  },
 ];
 
-const learningSkills = [
-  { name: "Three.js", level: 40 },
-  { name: "Framer Motion", level: 60 },
-  { name: "Backend Basics", level: 45 },
-];
+/* =========================
+   ANIMATION VARIANTS
+========================= */
 
-const SkillBar = ({ name, level }) => (
-  <motion.div
-    className="skill-bar"
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-  >
-    <div className="skill-info">
-      <span>{name}</span>
-      <span>{level}%</span>
-    </div>
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
 
-    <div className="bar-bg">
-      <motion.div
-        className="bar-fill"
-        initial={{ width: 0 }}
-        whileInView={{ width: `${level}%` }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-      />
-    </div>
-  </motion.div>
-);
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 const Skills = () => {
   return (
@@ -50,21 +80,44 @@ const Skills = () => {
         Skills
       </motion.h2>
 
-      <div className="skills-wrapper">
-        <div className="skills-group">
-          <h3>Core Skills</h3>
-          {coreSkills.map((skill) => (
-            <SkillBar key={skill.name} {...skill} />
-          ))}
-        </div>
+      {skillsData.map((group) => (
+        <div key={group.category} className="skills-group">
+          <h3>{group.category}</h3>
 
-        <div className="skills-group">
-          <h3>Learning</h3>
-          {learningSkills.map((skill) => (
-            <SkillBar key={skill.name} {...skill} />
-          ))}
+          <motion.div
+            className="skills-grid"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            {group.skills.map(({ name, icon: Icon }) => (
+              <motion.div
+                key={name}
+                className="skill-card"
+                variants={item}
+                whileHover={{
+                  y: -6,
+                  boxShadow: "0 14px 40px rgba(108,99,255,0.25)",
+                }}
+                whileFocus={{
+                  y: -6,
+                }}
+                tabIndex={0}
+              >
+                <motion.div
+                  className="skill-icon"
+                  whileHover={{ rotate: 8, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Icon />
+                </motion.div>
+                <span>{name}</span>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </div>
+      ))}
     </section>
   );
 };

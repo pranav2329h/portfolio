@@ -1,35 +1,68 @@
 import "./Navbar.css";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const SECTIONS = [
+  "home",
+  "about",
+  "skills",
+  "projects",
+  "experience",
+  "achievements",
+  "contact",
+];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 50);
+
+      // Progress bar
+      const doc = document.documentElement;
+      const total = doc.scrollHeight - doc.clientHeight;
+      setProgress(total > 0 ? (y / total) * 100 : 0);
+
+      // Active section detection
+      let current = "home";
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.offsetTop - 120; // offset for navbar
+        if (y >= top) current = id;
+      }
+      setActive(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // init
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="logo">Pranav</div>
+    <>
+      {/* Scroll progress (optional, subtle) */}
+      <div
+        className="scroll-progress"
+        style={{ width: `${progress}%` }}
+        aria-hidden
+      />
 
-      <ul className="nav-links">
-        {["home", "about", "skills", "projects", "contact"].map((item) => (
-          <li
-            key={item}
-            className={active === item ? "active" : ""}
-            onClick={() => setActive(item)}
-          >
-            <a href={`#${item}`}>{item.toUpperCase()}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+      <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+        <div className="logo">Pranav</div>
+
+        <ul className="nav-links">
+          {SECTIONS.map((item) => (
+            <li key={item} className={active === item ? "active" : ""}>
+              <a href={`#${item}`}>{item.toUpperCase()}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 };
 
