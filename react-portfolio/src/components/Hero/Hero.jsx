@@ -18,11 +18,10 @@ const Hero = () => {
           Hi, I’m <span>Pranav</span>
         </h1>
 
-        <h2>React Developer & UI Engineer</h2>
+        <h2>Software Developer | AI & Frontend</h2>
 
         <p>
-          I build modern, animated, high-performance web interfaces using
-          React, advanced CSS, and motion libraries.
+          Innovative and results-driven software developer with hands-on experience in AI-powered applications, frontend web development, and database management. Focused on building interactive, scalable, and user-friendly solutions.
         </p>
 
         <div className="hero-buttons">
@@ -54,8 +53,8 @@ const Hero = () => {
         whileHover={{ rotateY: 8, rotateX: -6 }}
       >
         <div className="card-glow"></div>
-        <h3>Frontend Specialist</h3>
-        <p>React • Motion • UI/UX</p>
+        <h3>Work Specialist</h3>
+        <p>Development • DSA • UI/UX • AI/ML </p>
       </motion.div>
     </section>
   );

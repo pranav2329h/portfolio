@@ -11,12 +11,23 @@ import {
   FaWordpress,
   FaShopify,
   FaLinux,
+  FaNodeJs,
 } from "react-icons/fa";
-import { SiJavascript, SiFigma, SiFlask, SiMysql, SiMongodb } from "react-icons/si";
-
-/* =========================
-   SKILLS DATA (FROM RESUME)
-========================= */
+import {
+  SiJavascript,
+  SiFigma,
+  SiFlask,
+  SiMysql,
+  SiMongodb,
+  SiC,
+  SiCplusplus,
+  SiR,
+  SiShopify,
+  SiAngular,
+  SiGooglecloud,
+  SiTensorflow,
+  SiOpenai,
+} from "react-icons/si";
 
 const skillsData = [
   {
@@ -24,10 +35,14 @@ const skillsData = [
     skills: [
       { name: "Python", icon: FaPython },
       { name: "Java", icon: FaJava },
+      { name: "C", icon: SiC },
+      { name: "C++", icon: SiCplusplus },
+      { name: "R", icon: SiR },
       { name: "PHP", icon: FaPhp },
       { name: "JavaScript", icon: SiJavascript },
       { name: "HTML", icon: FaHtml5 },
       { name: "CSS", icon: FaCss3Alt },
+      { name: "Liquid", icon: SiShopify },
     ],
   },
   {
@@ -35,6 +50,7 @@ const skillsData = [
     skills: [
       { name: "React.js", icon: FaReact },
       { name: "Flask", icon: SiFlask },
+      { name: "LangFlow", icon: SiOpenai },
       { name: "GitHub", icon: FaGithub },
       { name: "Figma", icon: SiFigma },
       { name: "WordPress", icon: FaWordpress },
@@ -44,28 +60,46 @@ const skillsData = [
   {
     category: "Databases & Systems",
     skills: [
-      { name: "MySQL", icon: SiMysql },
+      { name: "MySQL / SQL", icon: SiMysql },
       { name: "MongoDB", icon: SiMongodb },
       { name: "Linux / Ubuntu", icon: FaLinux },
     ],
   },
+  {
+    category: "Core Competencies",
+    skills: [
+      { name: "Machine Learning", icon: SiTensorflow },
+      { name: "API Integration", icon: SiOpenai },
+      { name: "REST APIs", icon: SiOpenai },
+      { name: "OOP Concepts", icon: SiOpenai },
+      { name: "Database Management", icon: SiMysql },
+    ],
+  },
+  {
+    category: "Currently Learning",
+    highlight: true,
+    skills: [
+      { name: "Machine Learning", icon: SiTensorflow },
+      { name: "Generative AI", icon: SiOpenai },
+      { name: "Cloud Computing", icon: SiGooglecloud },
+      { name: "Angular", icon: SiAngular },
+      { name: "Node.js", icon: FaNodeJs },
+      { name: "App Development", icon: FaReact },
+    ],
+  },
 ];
-
-/* =========================
-   ANIMATION VARIANTS
-========================= */
 
 const container = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.07,
     },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0 },
 };
 
@@ -81,7 +115,12 @@ const Skills = () => {
       </motion.h2>
 
       {skillsData.map((group) => (
-        <div key={group.category} className="skills-group">
+        <div
+          key={group.category}
+          className={`skills-group ${
+            group.highlight ? "highlight-group" : ""
+          }`}
+        >
           <h3>{group.category}</h3>
 
           <motion.div
@@ -98,20 +137,16 @@ const Skills = () => {
                 variants={item}
                 whileHover={{
                   y: -6,
+                  scale: 1.04,
                   boxShadow: "0 14px 40px rgba(108,99,255,0.25)",
                 }}
-                whileFocus={{
-                  y: -6,
-                }}
+                whileTap={{ scale: 0.97 }}
                 tabIndex={0}
               >
-                <motion.div
-                  className="skill-icon"
-                  whileHover={{ rotate: 8, scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
+                <div className="card-glow-layer" />
+                <div className="skill-icon">
                   <Icon />
-                </motion.div>
+                </div>
                 <span>{name}</span>
               </motion.div>
             ))}

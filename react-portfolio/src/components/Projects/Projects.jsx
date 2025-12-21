@@ -1,31 +1,43 @@
 import "./Projects.css";
 import { motion } from "framer-motion";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 const projects = [
   {
-    title: "SalesPulse – Sales Dashboard",
+    title: "Home Automation Using Arduino UNO",
     description:
-      "Interactive sales dashboard built with React to visualize KPIs, team performance, and trends.",
-    tech: ["React", "JavaScript", "UI"],
-    github: "#",
-    live: "#",
+      "IoT-based home automation system using Arduino UNO to control electrical appliances remotely with sensors and automation logic.",
+    tech: ["Arduino", "IoT", "Embedded C"],
+    github: "https://github.com/pranav2329h/Home_AUTOMATION_USING_ARDINO_UNO",
   },
   {
-    title: "Finance Chatbot",
+    title: "MindMeta xAI",
     description:
-      "AI-powered chatbot providing real-time stock, currency, and investment updates.",
-    tech: ["Python", "LangFlow", "AI"],
-    github: "#",
-    live: "#",
+      "AI-powered application focused on intelligent interaction and cognitive analysis using modern AI concepts and APIs.",
+    tech: ["Python", "AI", "NLP"],
+    github: "https://github.com/pranav2329h/Mindmeta-xAI",
   },
   {
-    title: "Sentiment Chat App",
+    title: "SalesPulse – AI Retail Analytics & Recommendations",
     description:
-      "Real-time chat application with sentiment analysis using React and Flask.",
-    tech: ["React", "Flask", "NLP"],
-    github: "#",
-    live: "#",
+      "AI-driven retail analytics platform for sales insights, customer behavior analysis, and smart product recommendations.",
+    tech: ["React", "AI", "Analytics"],
+    github:
+      "https://github.com/pranav2329h/SalesPulse-AI-Retail-analytics-recommendations",
+  },
+  {
+    title: "Prime Tune",
+    description:
+      "Music-based application focused on content handling, media interaction, and user-friendly UI design.",
+    tech: ["JavaScript", "Frontend", "UI"],
+    github: "https://github.com/pranav2329h/Prime_Tune",
+  },
+  {
+    title: "Voice Assistant Using Python",
+    description:
+      "Voice-controlled AI assistant built using Python to perform tasks via speech recognition and text-to-speech.",
+    tech: ["Python", "AI", "Speech Recognition"],
+    github: "https://github.com/pranav2329h/Voice-Assistant-using-Python",
   },
 ];
 
@@ -61,46 +73,38 @@ const Projects = () => {
       >
         {projects.map((project) => (
           <motion.article
+            key={project.title}
             className="project-card"
             variants={item}
             whileHover={{
               y: -10,
               boxShadow: "0 28px 80px rgba(0,0,0,0.35)",
             }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.97 }}
           >
-
-            {/* Rim light */}
             <span className="project-rim" />
 
             <div className="project-content">
               <h3>{project.title}</h3>
               <p>{project.description}</p>
 
-              <motion.div
-                className="project-tech"
-                initial={{ opacity: 0.8 }}
-                whileHover={{ opacity: 1 }}
-              >
+              <div className="project-tech">
                 {project.tech.map((t) => (
                   <span key={t}>{t}</span>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div
-              className="project-actions"
-              initial={{ opacity: 0, y: 10 }}
-              whileHover={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
-            >
-              <a href={project.github} target="_blank" rel="noreferrer">
-                <FaGithub /> Code
+            <div className="project-actions">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="View GitHub Repository"
+              >
+                <FaGithub /> GitHub
               </a>
-              <a href={project.live} target="_blank" rel="noreferrer">
-                <FaExternalLinkAlt /> Live
-              </a>
-            </motion.div>
+            </div>
           </motion.article>
         ))}
       </motion.div>

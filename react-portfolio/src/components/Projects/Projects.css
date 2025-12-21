@@ -1,31 +1,3 @@
-
-@media (max-width: 900px) {
-  .projects-grid {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .projects-grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .project-card {
-    flex: 0 0 85%;
-    scroll-snap-align: start;
-  }
-
-  /* Actions always visible on mobile */
-  .project-actions {
-    position: static;
-    opacity: 1;
-    margin-top: 16px;
-  }
-}
 .projects {
   max-width: 1100px;
   margin: auto;
@@ -37,7 +9,7 @@
   margin-bottom: 60px;
 }
 
-/* GRID */
+/* DESKTOP GRID */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -57,7 +29,7 @@
   isolation: isolate;
 }
 
-/* Subtle gradient rim */
+/* RIM LIGHT */
 .project-rim {
   position: absolute;
   inset: 0;
@@ -107,21 +79,9 @@
   border: 1px solid var(--glass-border);
 }
 
-/* ACTIONS */
+/* ACTION */
 .project-actions {
-  position: absolute;
-  left: 26px;
-  right: 26px;
-  bottom: 22px;
-
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  opacity: 0;
-}
-
-.project-card:hover .project-actions {
-  opacity: 1;
+  margin-top: 18px;
 }
 
 .project-actions a {
@@ -129,8 +89,8 @@
   align-items: center;
   gap: 8px;
 
-  font-size: 0.75rem;
-  padding: 8px 12px;
+  font-size: 0.8rem;
+  padding: 10px 14px;
   border-radius: 999px;
 
   background: var(--bg-secondary);
@@ -142,4 +102,28 @@
 .project-actions a:hover {
   background: var(--accent-secondary);
   color: #000;
+}
+
+/* ================================
+   MOBILE HORIZONTAL SCROLL
+================================ */
+@media (max-width: 900px) {
+  .projects-grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .projects-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
 }

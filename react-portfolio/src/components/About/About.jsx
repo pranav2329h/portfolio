@@ -26,17 +26,15 @@ const About = () => {
         <h2>Who I Am</h2>
 
         <p>
-          I am a passionate frontend developer focused on building interactive,
-          scalable, and visually refined web applications using React and modern
-          animation libraries.
+          I am an innovative and results-driven software developer with a strong foundation in artificial intelligence, frontend web development, and database management.
         </p>
 
         <p>
-          I enjoy crafting smooth user experiences, working with advanced CSS,
-          motion systems, and continuously learning new technologies to improve
-          performance and design quality.
+          I have hands-on experience working with technologies such as React, Python, Java, PHP, and Flask, and I enjoy building interactive, user-focused web interfaces with clean UI and efficient data handling.
         </p>
-
+        <p>
+          My work includes AI chatbots, sentiment analysis tools, dashboards, and full-stack applications. I focus on writing clean code, solving real-world problems, and continuously improving my technical and design skills.
+        </p>
         <div className="about-stats">
           <div>
             <h3>1+</h3>
