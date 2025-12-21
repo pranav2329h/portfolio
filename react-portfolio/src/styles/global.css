@@ -1,4 +1,11 @@
 @import "./variables.css";
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 * {
   margin: 0;
@@ -24,4 +31,86 @@ a {
 
 section {
   padding: 80px 8%;
+}
+/* Ambient animated background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(108,99,255,0.12), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(0,245,212,0.12), transparent 40%);
+  animation: ambientMove 22s linear infinite alternate;
+  z-index: -2;
+  pointer-events: none;
+}
+
+@keyframes ambientMove {
+  0% {
+    transform: translate(0%, 0%);
+  }
+  100% {
+    transform: translate(4%, -4%);
+  }
+}
+section {
+  position: relative;
+}
+
+section > h2::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-top: 10px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border-radius: 3px;
+}
+/* Glow layer */
+.card-glow-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    140px circle at var(--x, 50%) var(--y, 50%),
+    rgba(0,245,212,0.18),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.skill-card:hover .card-glow-layer,
+.project-card:hover .card-glow-layer,
+.achievement-card:hover .card-glow-layer {
+  opacity: 1;
+}
+/* ================================
+   MOBILE BASE (≤768px)
+================================ */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  section {
+    padding: 64px 6%;
+  }
+
+  h1 {
+    font-size: 2.2rem !important;
+  }
+
+  h2 {
+    font-size: 1.8rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
 }

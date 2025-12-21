@@ -1,3 +1,31 @@
+
+@media (max-width: 900px) {
+  .projects-grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .projects-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
+
+  /* Actions always visible on mobile */
+  .project-actions {
+    position: static;
+    opacity: 1;
+    margin-top: 16px;
+  }
+}
 .projects {
   max-width: 1100px;
   margin: auto;

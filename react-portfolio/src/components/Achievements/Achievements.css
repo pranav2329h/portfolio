@@ -1,3 +1,9 @@
+@media (max-width: 900px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
 .achievements {
   max-width: 1100px;
   margin: auto;

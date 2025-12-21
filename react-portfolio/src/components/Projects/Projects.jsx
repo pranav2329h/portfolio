@@ -61,14 +61,15 @@ const Projects = () => {
       >
         {projects.map((project) => (
           <motion.article
-            key={project.title}
             className="project-card"
             variants={item}
             whileHover={{
               y: -10,
               boxShadow: "0 28px 80px rgba(0,0,0,0.35)",
             }}
+            whileTap={{ scale: 0.98 }}
           >
+
             {/* Rim light */}
             <span className="project-rim" />
 
