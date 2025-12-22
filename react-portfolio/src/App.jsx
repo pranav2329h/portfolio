@@ -7,13 +7,13 @@ import Experience from "./components/Experience/Experience";
 import Contact from "./components/Contact/Contact";
 import Achievements from "./components/Achievements/Achievements";
 //import ScrollHero from "./components/Hero/ScrollHero";
-import CinematicHero from "./components/Hero/CinematicHero";
-
+//import CinematicHero from "./components/Hero/CinematicHero";
+import WebGLRingHero from "./components/Hero/WebGLRingHero";
 function App() {
   return (
     <>
       <Navbar />
-      <CinematicHero />
+      <WebGLRingHero/>
       <About />
       <Skills />
       <Projects />
