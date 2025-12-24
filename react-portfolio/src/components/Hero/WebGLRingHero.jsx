@@ -2,86 +2,128 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import "./WebGLRingHero.css";
 
-/* Vite-safe image imports */
+/* Load tech images */
 const images = import.meta.glob(
   "../../assets/tech/*.{png,jpg,jpeg}",
   { eager: true }
 );
 const IMAGE_URLS = Object.values(images).map((m) => m.default);
 
+const TARGET_ANGLES = [
+  0,                 // Right
+  Math.PI / 2,       // Top
+  Math.PI,           // Left
+  (Math.PI * 3) / 2  // Bottom
+];
+
 const WebGLRingHero = () => {
-  const containerRef = useRef(null);
+  const mountRef = useRef(null);
 
   useEffect(() => {
-    if (!containerRef.current || IMAGE_URLS.length === 0) return;
-
-    let scene, camera, renderer;
-    let ringGroup;
-    let animationId;
+    const mount = mountRef.current;
+    if (!mount || IMAGE_URLS.length === 0) return;
 
     /* SCENE */
-    scene = new THREE.Scene();
+    const scene = new THREE.Scene();
 
-    /* CAMERA — pulled back for safety */
-    camera = new THREE.PerspectiveCamera(
-      55,
+    /* CAMERA */
+    const camera = new THREE.PerspectiveCamera(
+      50,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 0, 14);
+    camera.position.z = 14;
 
     /* RENDERER */
-    renderer = new THREE.WebGLRenderer({
+    const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
+    mount.appendChild(renderer.domElement);
 
-    containerRef.current.appendChild(renderer.domElement);
+    /* GROUP */
+    const group = new THREE.Group();
+    scene.add(group);
 
-    /* RING GROUP — CENTERED */
-    ringGroup = new THREE.Group();
-    ringGroup.position.set(0, 0, 0);
-    scene.add(ringGroup);
-
-    /* CREATE IMAGE RING */
+    /* TEXTURES */
     const loader = new THREE.TextureLoader();
-    const radius = 6; // stable radius
+
     const count = IMAGE_URLS.length;
+    const radius = 6.5;
+    const baseSize = 1.9;
+
+    const meshes = [];
 
     IMAGE_URLS.forEach((src, i) => {
       const texture = loader.load(src);
-      texture.colorSpace = THREE.SRGBColorSpace;
 
       const material = new THREE.MeshBasicMaterial({
         map: texture,
+        transparent: true,
+        opacity: 0.55, // default blurred state
         side: THREE.DoubleSide,
       });
 
-      const geometry = new THREE.PlaneGeometry(2.2, 2.2);
+      const geometry = new THREE.PlaneGeometry(baseSize, baseSize);
       const mesh = new THREE.Mesh(geometry, material);
 
       const angle = (i / count) * Math.PI * 2;
 
       mesh.position.set(
         Math.cos(angle) * radius,
-        0,
-        Math.sin(angle) * radius
+        Math.sin(angle) * radius,
+        0
       );
 
-      mesh.lookAt(0, 0, 0);
-
-      ringGroup.add(mesh);
+      mesh.userData.angle = angle;
+      meshes.push(mesh);
+      group.add(mesh);
     });
 
-    /* ANIMATION — ROTATE IN DEPTH (Y AXIS) */
+    /* SCROLL ROTATION */
+    let scrollVelocity = 0;
+    const baseSpeed = 0.003;
+
+    const onScroll = () => {
+      scrollVelocity += 0.002;
+    };
+    window.addEventListener("scroll", onScroll);
+
+    /* ANIMATE */
+    let frameId;
     const animate = () => {
-      ringGroup.rotation.y += 0.002;
+      group.rotation.z += baseSpeed + scrollVelocity;
+      scrollVelocity *= 0.9;
+
+      meshes.forEach((mesh) => {
+        const worldAngle =
+          (mesh.userData.angle + group.rotation.z) % (Math.PI * 2);
+
+        // Find closest of the 4 cardinal angles
+        let minDist = Math.PI * 2;
+        TARGET_ANGLES.forEach((target) => {
+          const d = Math.abs(
+            ((worldAngle - target + Math.PI * 3) % (Math.PI * 2)) - Math.PI
+          );
+          minDist = Math.min(minDist, d);
+        });
+
+        // Normalize distance
+        const t = THREE.MathUtils.clamp(minDist / 0.6, 0, 1);
+
+        // Scale + opacity (fake blur)
+        const scale = THREE.MathUtils.lerp(1.25, 0.85, t);
+        const opacity = THREE.MathUtils.lerp(1, 0.35, t);
+
+        mesh.scale.set(scale, scale, 1);
+        mesh.material.opacity = opacity;
+      });
+
       renderer.render(scene, camera);
-      animationId = requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     };
     animate();
 
@@ -96,22 +138,29 @@ const WebGLRingHero = () => {
     /* CLEANUP */
     return () => {
       window.removeEventListener("resize", onResize);
-      cancelAnimationFrame(animationId);
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frameId);
       renderer.dispose();
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement);
-      }
+      mount.removeChild(renderer.domElement);
     };
   }, []);
 
   return (
     <section className="webgl-hero">
-      <div ref={containerRef} className="webgl-canvas" />
+      <div ref={mountRef} className="webgl-canvas" />
 
-      {/* HERO CONTENT */}
       <div className="hero-overlay">
         <h1>Pranav Hydrabade</h1>
-        <h2>Software Developer • AI & Frontend</h2>
+        <p>Software Developer • AI & Frontend</p>
+
+        <div className="hero-actions">
+          <a href="#projects" className="hero-btn primary">
+            View Projects
+          </a>
+          <a href="#contact" className="hero-btn secondary">
+            Contact Me
+          </a>
+        </div>
       </div>
     </section>
   );
