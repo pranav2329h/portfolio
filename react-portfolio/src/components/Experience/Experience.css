@@ -1,65 +1,99 @@
 .experience {
   max-width: 900px;
   margin: auto;
+  padding-top: 120px;
+  padding-bottom: 0; 
 }
-
-.experience h2 {
+.section-title {
   font-size: 2.4rem;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
-.timeline {
+.stack-card {
   position: relative;
-  padding-left: 30px;
-}
+  overflow: hidden;
 
-.timeline::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+
+  border: 1px solid var(--glass-border);
+  border-radius: 32px;
+  backdrop-filter: blur(14px);
+
+  padding: 26px 32px;
+  color: white;
+
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.stack-card::before {
   content: "";
   position: absolute;
-  left: 10px;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: var(--glass-border);
+  inset: -1px;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255, 200, 60, 0.35),   
+    rgba(110, 90, 255, 0.45),  
+    rgba(255, 200, 60, 0.35)
+  );
+
+  opacity: 0.35;
+  filter: blur(12px); 
+  z-index: -1;
+
+  transition: opacity 0.3s ease;
 }
 
-.timeline-item {
-  position: relative;
-  margin-bottom: 50px;
-  display: flex;
-  gap: 30px;
+.stack-card:hover::before {
+  opacity: 0.7;
 }
 
-.timeline-dot {
-  width: 14px;
-  height: 14px;
-  background: var(--accent-primary);
-  border-radius: 50%;
-  margin-top: 6px;
+.stack-card:hover {
+  box-shadow:
+    0 0 20px rgba(110, 90, 255, 0.45),
+    0 0 35px rgba(255, 200, 60, 0.35);
 }
 
-.timeline-content {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  padding: 20px 26px;
-  backdrop-filter: blur(12px);
+.stack-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+  display: block;
+  margin-bottom: 12px;
 }
 
-.timeline-content h3 {
-  font-size: 1rem;
+.stack-card h3 {
+  font-size: 1.1rem;
   margin-bottom: 6px;
 }
 
-.company {
+.stack-card .meta {
   font-size: 0.75rem;
   color: var(--accent-secondary);
 }
 
-.timeline-content p {
+.stack-card p {
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
   margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .stack-card {
+    padding: 22px 24px;
+  }
+
+  .stack-card::before {
+    filter: blur(10px);
+    opacity: 0.25;
+  }
 }

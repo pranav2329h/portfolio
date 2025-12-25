@@ -1,56 +1,66 @@
 import "./Experience.css";
-import { motion } from "framer-motion";
+import ScrollStack, { ScrollStackItem } from "../ScrollStack/ScrollStack";
 
-const experiences = [
+const stackItems = [
   {
-    role: "Frontend Developer Intern",
-    company: "Tech Startup",
+    label: "Experience",
+    title: "Frontend Developer Intern",
+    org: "Tech Startup",
     duration: "Jan 2024 – Apr 2024",
     description:
-      "Worked on building responsive UI components using React and CSS. Collaborated with designers and backend developers to improve user experience.",
+      "Built responsive UI components using React and modern CSS. Collaborated closely with design and backend teams.",
   },
   {
-    role: "Web Development Trainee",
-    company: "Learning Program",
+    label: "Experience",
+    title: "Web Development Trainee",
+    org: "Learning Program",
     duration: "Aug 2023 – Dec 2023",
     description:
-      "Learned core web technologies, built multiple mini-projects, and gained hands-on experience with frontend development workflows.",
+      "Worked on multiple frontend projects while learning modern development workflows and best practices.",
+  },
+  {
+    label: "Education",
+    title: "B.Tech – Artificial Intelligence",
+    org: "Your College Name",
+    duration: "2023 – 2026",
+    description:
+      "Focused on AI fundamentals, programming, web development, and software engineering.",
+  },
+  {
+    label: "Education",
+    title: "Diploma – Computer Science",
+    org: "Your Institute Name",
+    duration: "2020 – 2023",
+    description:
+      "Completed diploma with hands-on technical projects and strong CS foundations.",
   },
 ];
 
 const Experience = () => {
   return (
     <section id="experience" className="experience">
-      <motion.h2
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+      <h2 className="section-title">Experience & Education</h2>
+
+      <ScrollStack
+        itemDistance={60}       
+        itemStackDistance={24}  
+        itemScale={0.035}
+        baseScale={0.9}
+        blurAmount={0.4}
       >
-        Experience
-      </motion.h2>
+        {stackItems.map((item, index) => (
+          <ScrollStackItem key={index} itemClassName="stack-card">
+            <span className="stack-label">{item.label}</span>
 
-      <div className="timeline">
-        {experiences.map((exp, index) => (
-          <motion.div
-            key={index}
-            className="timeline-item"
-            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="timeline-dot"></div>
+            <h3>{item.title}</h3>
+            <span className="meta">
+              {item.org} • {item.duration}
+            </span>
 
-            <div className="timeline-content">
-              <h3>{exp.role}</h3>
-              <span className="company">
-                {exp.company} • {exp.duration}
-              </span>
-              <p>{exp.description}</p>
-            </div>
-          </motion.div>
+            <p>{item.description}</p>
+          </ScrollStackItem>
         ))}
-      </div>
+      </ScrollStack>
     </section>
   );
 };
