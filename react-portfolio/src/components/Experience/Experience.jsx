@@ -4,19 +4,11 @@ import ScrollStack, { ScrollStackItem } from "../ScrollStack/ScrollStack";
 const stackItems = [
   {
     label: "Experience",
-    title: "Frontend Developer Intern",
+    title: "WebDeveloper Intern",
     org: "Tech Startup",
-    duration: "Jan 2024 – Apr 2024",
+    duration: "Jan 2025 – 6 months",
     description:
-      "Built responsive UI components using React and modern CSS. Collaborated closely with design and backend teams.",
-  },
-  {
-    label: "Experience",
-    title: "Web Development Trainee",
-    org: "Learning Program",
-    duration: "Aug 2023 – Dec 2023",
-    description:
-      "Worked on multiple frontend projects while learning modern development workflows and best practices.",
+      "Rukhmani Pvt. Ltd., Pune (Jun 2025 – Present)WordPress &Shopify development, Web Development, SEO optimization, and client site management and Other E-comrelated projects",
   },
   {
     label: "Education",
