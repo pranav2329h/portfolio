@@ -41,6 +41,13 @@ const projects = [
     tech: ["Python", "AI", "Speech Recognition"],
     github: "https://github.com/pranav2329h/Voice-Assistant-using-Python",
   },
+  {
+    title: "Retrieval-Augmented Generation (RAG) system",
+    description:
+      " I've successfully built and deployed a Retrieval-Augmented Generation (RAG) system using LangFlow, integrating cutting-edge components",
+    tech: [" HuggingFace", "OpenAI GPT-4", "Astra DB and LangFlow "],
+    github: "https://www.linkedin.com/posts/pranav-hydrabade-10952a255_langflow-huggingface-openai-activity-7355169089973055488-GEuq?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD7nchkB8N17CflnZNOygkRL0GvoJadSGYw",
+  },
 ];
 
 const Projects = () => {

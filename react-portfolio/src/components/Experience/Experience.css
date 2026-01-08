@@ -1,18 +1,27 @@
 .experience {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
-  padding-top: 120px;
-  padding-bottom: 0; 
+  padding: 120px 20px 40px;
 }
+
 .section-title {
   font-size: 2.4rem;
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 70px;
 }
 
-.stack-card {
+/* GRID */
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+/* CARD */
+.experience-card {
   position: relative;
-  overflow: hidden;
+  padding: 28px 30px;
+  border-radius: 28px;
 
   background: linear-gradient(
     180deg,
@@ -21,17 +30,18 @@
   );
 
   border: 1px solid var(--glass-border);
-  border-radius: 32px;
   backdrop-filter: blur(14px);
 
-  padding: 26px 32px;
   color: white;
 
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
-.stack-card::before {
+
+/* GLOW BORDER */
+.experience-card::before {
   content: "";
   position: absolute;
   inset: -1px;
@@ -39,61 +49,67 @@
 
   background: linear-gradient(
     120deg,
-    rgba(255, 200, 60, 0.35),   
-    rgba(110, 90, 255, 0.45),  
+    rgba(255, 200, 60, 0.35),
+    rgba(110, 90, 255, 0.45),
     rgba(255, 200, 60, 0.35)
   );
 
-  opacity: 0.35;
-  filter: blur(12px); 
+  opacity: 0.3;
+  filter: blur(14px);
   z-index: -1;
-
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
-.stack-card:hover::before {
+/* HOVER EFFECT (LIGHTWEIGHT) */
+.experience-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 18px rgba(110, 90, 255, 0.45),
+    0 0 32px rgba(255, 200, 60, 0.35);
+}
+
+.experience-card:hover::before {
   opacity: 0.7;
 }
 
-.stack-card:hover {
-  box-shadow:
-    0 0 20px rgba(110, 90, 255, 0.45),
-    0 0 35px rgba(255, 200, 60, 0.35);
-}
-
-.stack-label {
+/* TEXT */
+.card-type {
   font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent-secondary);
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
-.stack-card h3 {
-  font-size: 1.1rem;
+.experience-card h3 {
+  font-size: 1.15rem;
   margin-bottom: 6px;
 }
 
-.stack-card .meta {
+.card-meta {
   font-size: 0.75rem;
   color: var(--accent-secondary);
 }
 
-.stack-card p {
+.experience-card p {
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
-  .stack-card {
-    padding: 22px 24px;
+  .experience {
+    padding-top: 100px;
   }
 
-  .stack-card::before {
+  .experience-card {
+    padding: 24px;
+  }
+
+  .experience-card::before {
     filter: blur(10px);
-    opacity: 0.25;
   }
 }
